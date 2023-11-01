@@ -21,37 +21,37 @@ import br.com.rory.listamercado.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping(produces = "application/json")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping("/api/users")
     @ResponseStatus(HttpStatus.OK)
     public List<UserModel> getAllUsers(HttpServletRequest request) {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/api/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Object getUserById(@PathVariable UUID id, HttpServletRequest request) {
         return userService.getUserById((UUID) id);
     }
 
-    @PostMapping
+    @PostMapping("/api/users")
     @ResponseStatus(HttpStatus.CREATED)
     public UserModel createUser(@RequestBody UserInputDto userInputDto) {
         return userService.createUser(userInputDto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/api/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserModel updateUser(@PathVariable UUID id, @RequestBody UserInputDto userInputDto) {
         return userService.updateUser((UUID) id, userInputDto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/api/{id}")
     @ResponseStatus(HttpStatus.OK)
     public String deleteUser(@PathVariable UUID id, HttpServletRequest request) {
         userService.deleteUser((UUID) id);
